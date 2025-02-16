@@ -1,10 +1,18 @@
 $(document).ready(function() {
     // 行程展开/收起
+    let isItineraryExpanded = false;
+    const $itineraryContent = $('#itineraryContent');
+    const $toggleIcon = $('.toggle-icon');
+    
     $('#toggleItinerary').click(function() {
-        const content = $('#itineraryContent');
-        const icon = $('.toggle-icon');
-        content.toggleClass('expanded');
-        icon.toggleClass('rotated');
+        isItineraryExpanded = !isItineraryExpanded;
+        if (isItineraryExpanded) {
+            $itineraryContent.addClass('expanded').css('height', '400px');
+            $toggleIcon.addClass('rotated');
+        } else {
+            $itineraryContent.removeClass('expanded').css('height', '0');
+            $toggleIcon.removeClass('rotated');
+        }
     });
 
     // 日程切换
@@ -13,8 +21,8 @@ $(document).ready(function() {
         $(this).addClass('active');
         
         const day = $(this).data('day');
-        $('.timeline-content').removeClass('active');
-        $(`.timeline-content[data-day="${day}"]`).addClass('active');
+        $('.itinerary-schedule').removeClass('active');
+        $(`.itinerary-schedule[data-day="${day}"]`).addClass('active');
     });
 
     // 景点点击处理
