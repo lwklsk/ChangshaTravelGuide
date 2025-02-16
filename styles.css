@@ -218,12 +218,6 @@ body {
     height: 100%;
 }
 
-@font-face {
-    font-family: 'WebKaiTi';
-    src: url('fonts/kaiti.ttf') format('truetype');
-    font-display: swap;  /* 优化字体加载 */
-}
-
 .spot {
     position: absolute;
     cursor: pointer;
