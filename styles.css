@@ -223,7 +223,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     color: #333;
-    font-family: KaiTi;  /* 添加字体 */
+    font-family: KaiTi, '楷体', '楷体_GB2312', STKaiti, '华文楷体', serif;  /* 添加字体 */
     font-weight: bolder;
 }
 
