@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>景点详情</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <style>
+        .spot-detail {
+            padding: 20px;
+        }
+
+        .spot-header {
+            margin-bottom: 20px;
+        }
+
+        .spot-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .spot-location {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .spot-info {
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .photo-gallery {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+        }
+
+        .gallery-container {
+            display: flex;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item {
+            flex: 0 0 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+        }
+
+        .description {
+            white-space: pre-line; /* 保留文本中的换行 */
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="spot-detail">
+        <div class="spot-header">
+            <div class="spot-name">湖南博物馆</div>
+
+        </div>
+
+        <div class="photo-gallery">
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="images/湖南博物馆1.jpg" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/湖南博物馆2.jpg" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/湖南博物馆3.jpg" class="gallery-image">
+                </div>
+            </div>
+        </div>
+
+        <div class="description">
+            九点到十二点，十二点到十六点，分两场
+            就在民宿旁边，走过去十分钟。
+            
+            一定要预约，刷身份证进场。
+            
+            普通陈列免费，特殊展览和临时展览几十上百（这里面包含普通陈列）。
+            看普通陈列就够了，抢不到普通陈列的票再考虑买票进去。
+            不过我们肯定能抢到，这个没事。
+            
+            讲解机器30一个人，头戴式耳机，所以没法租一台大家用，我租过，说实话体验很差，展品不全，而且说的内容很少。
+            AR眼镜，90一个人，也没法大家用，我当时去还没有。
+            人工讲解50一个人，拼团好像能便宜具体价格没问。
+            里面说是有志愿者讲解，但很少，我上次去一个也没看见。
+            我建议还是需要讲解的，不然就是进去散步的。
+            要讲解的话，先定好时间然后我去找人。
+            这里要走的路挺多的，可以空手去，反正民宿很近。
+            
+        </div>
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // 图片轮播功能
+        $(document).ready(function() {
+            let currentIndex = 0;
+            const $container = $('.gallery-container');
+            const itemCount = $('.gallery-item').length;
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % itemCount;
+                updateGallery();
+            }
+
+            function previousImage() {
+                currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+                updateGallery();
+            }
+
+            function updateGallery() {
+                const translateX = -currentIndex * 100;
+                $container.css('transform', `translateX(${translateX}%)`);
+            }
+
+            // 添加触摸滑动支持
+            let startX = 0;
+            let isDragging = false;
+
+            $('.photo-gallery').on('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+
+            $('.photo-gallery').on('touchmove', function(e) {
+                if (!isDragging) return;
+                const currentX = e.touches[0].clientX;
+                const diff = startX - currentX;
+
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextImage();
+                    } else {
+                        previousImage();
+                    }
+                    isDragging = false;
+                }
+            });
+
+            $('.photo-gallery').on('touchend', function() {
+                isDragging = false;
+            });
+        });
+    </script>
+</body>
+</html>

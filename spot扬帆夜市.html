@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>景点详情</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 15px;
+            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .spot-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .gallery {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .gallery-container {
+            display: flex;
+            transition: transform 0.3s ease;
+            height: 100%;
+        }
+
+        .gallery-item {
+            flex: 0 0 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0; /* 占位背景色 */
+        }
+
+        .description {
+            white-space: pre-line; /* 保留文本中的换行 */
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="spot-name"></div>
+
+    <div class="gallery">
+        <div class="gallery-container">
+            <div class="gallery-item">
+                <img src="images/1.jpg" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="images/2.jpg" class="gallery-image">
+            </div>
+            <div class="gallery-item">
+                <img src="images/3.jpg" class="gallery-image">
+            </div>
+        </div>
+    </div>
+
+    <div class="description">
+
+    </div>
+
+    <script>
+        // 图片轮播功能
+        function initGallery() {
+            let currentIndex = 0;
+            const container = document.querySelector('.gallery-container');
+            const items = container.children;
+            
+            let startX = 0;
+            let isDragging = false;
+
+            container.parentElement.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+
+            container.parentElement.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const currentX = e.touches[0].clientX;
+                const diff = startX - currentX;
+
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0 && currentIndex < items.length - 1) {
+                        currentIndex++;
+                    } else if (diff < 0 && currentIndex > 0) {
+                        currentIndex--;
+                    }
+                    updateGallery();
+                    isDragging = false;
+                }
+            });
+
+            container.parentElement.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            function updateGallery() {
+                container.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initGallery);
+    </script>
+</body>
+</html>
