@@ -3,128 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>景点详情</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
-    <title>景点详情</title>
     <style>
-        body {
-            margin: 0;
-            padding: 15px;
-            font-family: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
-            color: #333;
-            line-height: 1.6;
+        .spot-detail {
+            padding: 20px;
+        }
+
+        .spot-header {
+            margin-bottom: 20px;
         }
 
         .spot-name {
             font-size: 24px;
             font-weight: bold;
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: 10px;
         }
 
-        .gallery {
+        .spot-location {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        .spot-info {
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .photo-gallery {
+            position: relative;
             width: 100%;
             height: 200px;
             overflow: hidden;
-            border-radius: 8px;
-            position: relative;
             margin-bottom: 20px;
+            border-radius: var(--border-radius);
         }
 
         .gallery-container {
             display: flex;
             transition: transform 0.3s ease;
-            height: 100%;
         }
 
+        .gallery-item {
+            flex: 0 0 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+        }
 
         .description {
             white-space: pre-line; /* 保留文本中的换行 */
             font-size: 16px;
             margin-top: 20px;
         }
+
+
     </style>
 </head>
 <body>
-    <div class="spot-name">橘子洲</div>
+    <div class="spot-detail">
+        <div class="spot-header">
+            <div class="spot-name">橘子洲</div>
 
-    <div class="gallery">
-        <div class="gallery-container">
-            <div class="gallery-item">
-                <img src="images/橘子洲1.jpg" class="gallery-image">
-            </div>
-            <div class="gallery-item">
-                <img src="images/橘子洲2.jpg" class="gallery-image">
-            </div>
-            <div class="gallery-item">
-                <img src="images/橘子洲3.jpg" class="gallery-image">
+        </div>
+
+        <div class="photo-gallery">
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="images/橘子洲1.jpg" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/橘子洲2.jpg" class="gallery-image">
+                </div>
+                <div class="gallery-item">
+                    <img src="images/橘子洲3.jpg" class="gallery-image">
+                </div>
             </div>
         </div>
+
+        <div class="description">
+
+            最多提前两天预约
+    
+            景区开放时间七点到二十二点
+            
+            小火车运营时间七点半到二十一点半
+            
+            景区免费，小火车40一个人。
+            
+            地铁二号线，橘子洲头站
+            从民宿六号线转二号线，三十分钟
+            也可以选择从岳麓山东门下后坐观光游船到橘子洲。
+            
+            
+            主要是来瞻仰毛主席雕像，其余部分就是公园性质，没什么看头。
+            独立在湘江上，附近没有别的景点或饭店。
+            必须坐车，坐车也要走很久，不坐车直接走死。
+            天气好推荐夕阳去。如果阴天的话，白天拍照效果会很差。天气不好推荐晚上去，晚上会打光。
+            
+        </div>
+
+
     </div>
 
-    <div class="description">
-
-        最多提前两天预约
-
-        景区开放时间七点到二十二点
-        
-        小火车运营时间七点半到二十一点半
-        
-        景区免费，小火车40一个人。
-        
-        地铁二号线，橘子洲头站
-        从民宿六号线转二号线，三十分钟
-        也可以选择从岳麓山东门下后坐观光游船到橘子洲。
-        
-        
-        主要是来瞻仰毛主席雕像，其余部分就是公园性质，没什么看头。
-        独立在湘江上，附近没有别的景点或饭店。
-        必须坐车，坐车也要走很久，不坐车直接走死。
-        天气好推荐夕阳去。如果阴天的话，白天拍照效果会很差。天气不好推荐晚上去，晚上会打光。
-        
-    </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // 图片轮播功能
-        function initGallery() {
+        $(document).ready(function() {
             let currentIndex = 0;
-            const container = document.querySelector('.gallery-container');
-            const items = container.children;
-            
+            const $container = $('.gallery-container');
+            const itemCount = $('.gallery-item').length;
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % itemCount;
+                updateGallery();
+            }
+
+            function previousImage() {
+                currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+                updateGallery();
+            }
+
+            function updateGallery() {
+                const translateX = -currentIndex * 100;
+                $container.css('transform', `translateX(${translateX}%)`);
+            }
+
+            // 添加触摸滑动支持
             let startX = 0;
             let isDragging = false;
 
-            container.parentElement.addEventListener('touchstart', (e) => {
+            $('.photo-gallery').on('touchstart', function(e) {
                 startX = e.touches[0].clientX;
                 isDragging = true;
             });
 
-            container.parentElement.addEventListener('touchmove', (e) => {
+            $('.photo-gallery').on('touchmove', function(e) {
                 if (!isDragging) return;
                 const currentX = e.touches[0].clientX;
                 const diff = startX - currentX;
 
                 if (Math.abs(diff) > 50) {
-                    if (diff > 0 && currentIndex < items.length - 1) {
-                        currentIndex++;
-                    } else if (diff < 0 && currentIndex > 0) {
-                        currentIndex--;
+                    if (diff > 0) {
+                        nextImage();
+                    } else {
+                        previousImage();
                     }
-                    updateGallery();
                     isDragging = false;
                 }
             });
 
-            container.parentElement.addEventListener('touchend', () => {
+            $('.photo-gallery').on('touchend', function() {
                 isDragging = false;
             });
-
-            function updateGallery() {
-                container.style.transform = `translateX(-${currentIndex * 100}%)`;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', initGallery);
+        });
     </script>
 </body>
 </html>
