@@ -108,4 +108,116 @@
         <div class="spot-info">
             <div class="info-item">
                 <div class="info-label">营业时间</div>
-                <div class="info-content"><!-- 营业时间 -->
+                <div class="info-content"><!-- 营业时间 --></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">预约信息</div>
+                <div class="info-content"><!-- 是否需要预约 --></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">门票</div>
+                <div class="info-content"><!-- 门票信息 --></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">特色</div>
+                <div class="info-content"><!-- 特色描述 --></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">交通方式</div>
+                <div class="info-content"><!-- 交通方式及时间 --></div>
+            </div>
+        </div>
+
+        <div class="rating">
+            <div class="info-label">推荐指数</div>
+            <div class="rating-stars">
+                <!-- 星级评分 -->
+                ★★★★★
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-label">附近景点</div>
+            <div class="nearby-spots">
+                <!-- 附近景点列表 -->
+                <div class="nearby-spot">景点A</div>
+                <div class="nearby-spot">景点B</div>
+                <div class="nearby-spot">景点C</div>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-label">相似景点</div>
+            <div class="nearby-spots">
+                <!-- 相似景点列表 -->
+                <div class="nearby-spot">景点X</div>
+                <div class="nearby-spot">景点Y</div>
+                <div class="nearby-spot">景点Z</div>
+            </div>
+        </div>
+
+        <div class="info-item">
+            <div class="info-label">附近美食</div>
+            <div class="nearby-spots">
+                <!-- 附近餐厅列表 -->
+                <div class="nearby-spot">餐厅1</div>
+                <div class="nearby-spot">餐厅2</div>
+                <div class="nearby-spot">餐厅3</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // 图片轮播功能
+        $(document).ready(function() {
+            let currentIndex = 0;
+            const $container = $('.gallery-container');
+            const itemCount = $('.gallery-item').length;
+
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % itemCount;
+                updateGallery();
+            }
+
+            function previousImage() {
+                currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+                updateGallery();
+            }
+
+            function updateGallery() {
+                const translateX = -currentIndex * 100;
+                $container.css('transform', `translateX(${translateX}%)`);
+            }
+
+            // 添加触摸滑动支持
+            let startX = 0;
+            let isDragging = false;
+
+            $('.photo-gallery').on('touchstart', function(e) {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+
+            $('.photo-gallery').on('touchmove', function(e) {
+                if (!isDragging) return;
+                const currentX = e.touches[0].clientX;
+                const diff = startX - currentX;
+
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextImage();
+                    } else {
+                        previousImage();
+                    }
+                    isDragging = false;
+                }
+            });
+
+            $('.photo-gallery').on('touchend', function() {
+                isDragging = false;
+            });
+        });
+    </script>
+</body>
+</html>
