@@ -10,42 +10,163 @@
 <body>
     <!-- 页面标题 -->
     <header class="site-header">
-        <h1>长沙旅游攻略</h1>
+        <h1>ChangshaTravelGuide</h1>
     </header>
     
     <!-- 行程推荐部分 -->
     <div class="itinerary-container">
         <div class="itinerary-header" id="toggleItinerary">
             <span>推荐行程</span>
-            <svg class="toggle-icon" viewBox="0 0 24 24">
+            <svg class="toggle-icon" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M7 10l5 5 5-5z"/>
             </svg>
         </div>
-        <div class="itinerary-content" id="itineraryContent">
-            <div class="day-selector">
-                <button class="day-btn active" data-day="1">第一天</button>
-                <button class="day-btn" data-day="2">第二天</button>
-                <button class="day-btn" data-day="3">第三天</button>
-                <button class="day-btn" data-day="4">第四天</button>
-            </div>
-            <div class="timeline-container">
-                <div class="timeline-content active" data-day="1">
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="time">09:00</div>
-                            <div class="event">活动1</div>
+        <div class="itinerary-content hidden" id="itineraryContent">
+            <div class="itinerary-days">
+                <div class="day-selector">
+                    <button class="day-btn active" data-day="1">第一天</button>
+                    <button class="day-btn" data-day="2">第二天</button>
+                    <button class="day-btn" data-day="3">第三天</button>
+                    <button class="day-btn" data-day="4">第四天</button>
+                </div>
+                <div class="itinerary-schedule-container">
+                    <div class="itinerary-schedule active" data-day="1">
+                        <div class="schedule-timeline">
+                            <div class="timeline-event">
+                                <span class="time">17:30 - 18:30</span>
+                                <div class="event-content">
+                                    <h3>到达长沙</h3>
+                                    <p>二号线转六号线，湘雅医院站，40分钟
+                                    </br>到达民宿，放下行李，稍加整理去吃饭</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">19:00 - 20:30</span>
+                                <div class="event-content">
+                                    <h3>吃晚饭</h3>
+                                    <p>民宿对面有商场，里面很多连锁湘菜<br>鲁哥，大碗，炊烟，费大厨，彭耕记<br>吃完逛一逛，买杯茶颜悦色，也差不多休息了</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="time">12:00</div>
-                            <div class="event">活动2</div>
-                        </div>
-                        <!-- 更多时间点 -->
                     </div>
-                    <div class="day-description">
-                        第一天行程说明文本
+                    <div class="itinerary-schedule" data-day="2">
+                        <div class="schedule-timeline">
+                            <div class="timeline-event">
+                                    <span class="time">9:30 - 10:00</span>
+                                    <div class="event-content">
+                                        <h3>起来嗦粉</h3>
+                                        <p>找家当地小店嗦粉</p>
+                                    </div>
+                                </div>
+                            <div class="timeline-event">
+                                <span class="time">10:30 - 12:00</span>
+                                <div class="event-content">
+                                    <h3>岳麓山+岳麓书院+湖南大学</h3>
+                                    <p>上午把西边的几个景点逛完<br>估计下雨，不坐滑道就不走东门，南门进南门出</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">12:15 - 13:00</span>
+                                <div class="event-content">
+                                    <h3>大学城步行街吃午饭</h3>
+                                    <p>目前看下来最物美价廉的步行街，毕竟是大学城的<br>虽然不一定都是湖南特色，但都说好吃不贵</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">13:30 - 21:00</span>
+                                <div class="event-content">
+                                    <h3>天心阁 - 南门口 - 黄兴路步行街 - 文和友 - 杜甫江阁</h3>
+                                    <p>五一广场商圈南区部分 <br> 我建议中间穿插老长沙特色-按脚 <br>逛的时候可以拿号笨萝卜</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="itinerary-schedule" data-day="3">
+                        <div class="schedule-timeline">
+                            <div class="timeline-event">
+                                <span class="time">9:30 - 10:00</span>
+                                <div class="event-content">
+                                    <h3>还是嗦粉</h3>
+                                    <p>长沙早上起来就是粉，不然就是炸的各种粑粑坨坨</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">10:15 - 12:00</span>
+                                <div class="event-content">
+                                    <h3>湖南博物馆</h3>
+                                    <p>因为离家近，不方便安排在中间，晚上又不开门，只能上午去了<br>或者就是，上午逛累了，中午回来休息，下午去博物馆<br>这个就要提前定好，博物馆预约分上下午的</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">12:15 - 13:00</span>
+                                <div class="event-content">
+                                    <h3>回去休息</h3>
+                                    <p>博物馆要全程走下来，肯定很累，回去休息休息</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">13:15 - 14:15</span>
+                                <div class="event-content">
+                                    <h3>潮宗街citywalk</h3>
+                                    <p>希望别下雨，就是逛街拍照</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">14:30 - 19:30</span>
+                                <div class="event-content">
+                                    <h3>五一广场 - IFS - 太平老街</h3>
+                                    <p>五一广场北区部分<br>这个方案把五一广场分开两天，因为一天走下来太累了 <br>也可以一天走完，把博物馆放到岳麓山一天</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">20:00 - 20:30</span>
+                                <div class="event-content">
+                                    <h3>橘子洲头</h3>
+                                    <p>晚上加下雨人会稍微少一点<br>瞻仰一下毛主席，拍一点照片，回去顺便买点宵夜<br>和前一晚杜甫江阁可替换</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="itinerary-schedule" data-day="4">
+                        <div class="schedule-timeline">
+                            <div class="timeline-event">
+                                <span class="time">9:30 - 10:30</span>
+                                <div class="event-content">
+                                    <h3>起来嗦粉</h3>
+                                    <p>附近有两家粉店，也可以去寺庙附近嗦粉<br>或者可以在庙里吃素面或斋饭</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">11:00 - 11:40</span>
+                                <div class="event-content">
+                                    <h3>古开福寺</h3>
+                                    <p>拜佛最好早上，最后一天也不要太赶，安排在这里相对最合适了</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">12:00 - 12:30</span>
+                                <div class="event-content">
+                                    <h3>收拾退房</h3>
+                                    <p>整理行李，办理退房</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">12:30 - 13:30</span>
+                                <div class="event-content">
+                                    <h3>吃午饭</h3>
+                                    <p>退房后行李可以寄存或者带着去吃饭<br>对面商场不错的湘菜很多，再选一家吃吃看</p>
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <span class="time">13:30</span>
+                                <div class="event-content">
+                                    <h3>前往长沙南站</h3>
+                                    <p>地铁六号线转二号线，40分钟<br>14:46的车，提前三十分钟到</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- 其他天的时间线（初始隐藏） -->
             </div>
         </div>
     </div>
@@ -53,21 +174,64 @@
     <!-- 地图部分 -->
     <div class="map-container">
         <!-- 地图背景图片 -->
+
         <div class="map-background">
-            <!-- 替换为实际地图图片 -->
-            <div style="width: 100%; height: 100%; background-color: #f0f0f0;"></div>
+            <img src="./map1.jpg" alt="长沙地图" class="map-image">
         </div>
         
         <!-- 景点标记 -->
-        <div class="spot spot-1" style="left: 20%; top: 30%">1</div>
-        <div class="spot spot-2" style="left: 35%; top: 45%">2</div>
-        <div class="spot spot-3" style="left: 50%; top: 25%">3</div>
-        <div class="spot spot-4" style="left: 65%; top: 55%">4</div>
-        <div class="spot spot-5" style="left: 80%; top: 35%">5</div>
-        <div class="spot spot-6" style="left: 25%; top: 65%">6</div>
-        <div class="spot spot-7" style="left: 45%; top: 75%">7</div>
-        <div class="spot spot-8" style="left: 70%; top: 70%">8</div>
-        <div class="spot spot-9" style="left: 55%; top: 40%">9</div>
+        <div class="spot spot-1" style="left: 45%; top: 50%">橘子洲</div>
+        <div class="spot spot-1" style="left: 45%; top: 50%">橘子洲</div>
+
+        <div class="spot spot-2" style="left: 31%; top: 42%">岳麓山</div>
+        <div class="spot spot-2" style="left: 31%; top: 42%">岳麓山</div>
+
+        <div class="spot spot-2" style="left: 32%; top: 46%">岳麓书院</div>
+        <div class="spot spot-2" style="left: 32%; top: 46%">岳麓书院</div>
+
+
+        <div class="spot spot-3" style="left: 63%; top: 35%">湖南博物馆</div>
+        <div class="spot spot-3" style="left: 63%; top: 35%">湖南博物馆</div>
+
+
+
+        <div class="spot spot-4" style="left: 53%; top: 32%">古开福寺</div>
+        <div class="spot spot-4" style="left: 53%; top: 32%">古开福寺</div>
+
+
+        <div class="spot spot-5" style="left: 50%; top: 43%">五一广场商圈</div>
+        <div class="spot spot-5" style="left: 50%; top: 43%">五一广场商圈</div>
+
+
+        <div class="spot spot-6" style="left: 50%; top: 27%">长沙博物馆</div>
+        <div class="spot spot-6" style="left: 50%; top: 27%">长沙博物馆</div>
+
+
+        <div class="spot spot-7" style="left: 32%; top: 65%">李自健美术馆</div>
+        <div class="spot spot-7" style="left: 32%; top: 65%">李自健美术馆</div>
+
+
+        <div class="spot spot-8" style="left: 80%; top: 53%">长沙南站</div>
+        <div class="spot spot-8" style="left: 80%; top: 53%">长沙南站</div>
+
+
+        <div class="spot spot-9" style="left: 72%; top: 47%">扬帆夜市</div>
+        <div class="spot spot-9" style="left: 72%; top: 47%">扬帆夜市</div>
+
+
+        <div class="spot spot-10" style="left: 62%; top: 29%">四方坪夜市</div>
+        <div class="spot spot-10" style="left: 62%; top: 29%">四方坪夜市</div>
+
+
+        <div class="spot spot-11" style="left: 71%; top: 43%">万家丽</div>
+        <div class="spot spot-11" style="left: 71%; top: 43%">万家丽</div>
+
+
+
+        <div class="spot spot-3" style="left: 60%; top: 35%; color: darksalmon;">★</div>
+
+
+
     </div>
 
     <!-- 景点详情iframe -->
