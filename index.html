@@ -1,320 +1,77 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>TXT小说阅读器</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #F5DEB3;  /* 修改默认背景色 */
-            font-family: "Microsoft YaHei", sans-serif;
-            min-height: 100vh;
-            display: flex;
-            position: relative;
-        }
-
-        .file-select {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-            transition: opacity 0.3s;
-        }
-
-        .file-select.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .content-container {
-            width: 70%;
-            margin: 20px auto;
-            padding: 20px 40px;
-            line-height: 1.8;
-            color: #2F4F4F;
-            font-size: 18px;
-            word-spacing: 2px;
-            letter-spacing: 1px;
-            white-space: pre-wrap;
-        }
-
-        .chapter-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin: 30px 0 20px 0;
-            color: inherit;
-        }
-
-        /* 修改目录区域样式 */
-        .toc {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 200px;
-            height: 100vh;
-            transform: translateX(-99%);
-            overflow-y: auto;
-            padding: 20px;
-            background-color: rgba(245, 230, 211, 0.9);
-            transition: transform 0.3s ease;
-            white-space: nowrap;
-            z-index: 100;
-        }
-
-        .toc:hover {
-            transform: translateX(0);
-        }
-
-        .toc a {
-            display: block;
-            color: #2F4F4F;
-            text-decoration: none;
-            margin: 8px 0;
-            font-size: 14px;
-        }
-
-        .settings-btn {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-            background-color: rgba(245, 230, 211, 0.9);
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-        }
-
-        .settings-btn:hover {
-            opacity: 1;
-        }
-
-        .settings-panel {
-            display: none;
-            position: fixed;
-            right: 20px;
-            bottom: 60px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            z-index: 1000;
-            min-width: 250px;
-        }
-
-        .settings-panel.active {
-            display: block;
-        }
-
-        .setting-item {
-            margin: 15px 0;
-        }
-
-        .setting-item label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        /* 修改设置选项样式 */
-        .setting-item select {
-            width: 100%;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-
-        .color-preset {
-            width: 25px;
-            height: 25px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            margin: 0 5px;
-            cursor: pointer;
-            box-shadow: 0 0 3px rgba(0,0,0,0.3);
-        }
-
-        .color-preset:hover {
-            transform: scale(1.1);
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>长沙旅游攻略</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    <div class="file-select" id="fileSelect">
-        <input type="file" accept=".txt" id="fileInput">
-    </div>
-    <div>
-        <a href="./test.html">本文本</a> 是一个指向本网站中的一个页面的链接。</p>
-    </div>
-
-    <div class="toc" id="toc"></div>
-
-    <div class="content-container" id="content"></div>
-
-    <button class="settings-btn" id="settingsBtn">⚙️</button>
-
-    <div class="settings-panel" id="settingsPanel">
-        <div class="setting-item">
-            <label>字体</label>
-            <select id="fontFamily">
-                <option value="Microsoft YaHei">微软雅黑</option>
-                <option value="SimSun">宋体</option>
-                <option value="KaiTi">楷体</option>
-            </select>
+    <!-- 行程推荐部分 -->
+    <div class="itinerary-container">
+        <div class="itinerary-header" id="toggleItinerary">
+            <span>推荐行程</span>
+            <svg class="toggle-icon" viewBox="0 0 24 24">
+                <path d="M7 10l5 5 5-5z"/>
+            </svg>
         </div>
-        <div class="setting-item">
-            <label>字号</label>
-            <select id="fontSize">
-                <option value="14">14px</option>
-                <option value="16">16px</option>
-                <option value="18" selected>18px</option>
-                <option value="20">20px</option>
-                <option value="22">22px</option>
-                <option value="24">24px</option>
-            </select>
-        </div>
-        <div class="setting-item">
-            <label>行间距</label>
-            <select id="lineHeight">
-                <option value="1.5">1.5</option>
-                <option value="1.8" selected>1.8</option>
-                <option value="2.0">2.0</option>
-                <option value="2.2">2.2</option>
-                <option value="2.5">2.5</option>
-            </select>
-        </div>
-        <div class="setting-item">
-            <label>字间距</label>
-            <select id="letterSpacing">
-                <option value="0">无</option>
-                <option value="1" selected>1px</option>
-                <option value="2">2px</option>
-                <option value="3">3px</option>
-                <option value="4">4px</option>
-            </select>
-        </div>
-        <div class="setting-item">
-            <label>字色</label>
-            <button class="color-preset" style="background-color: #2F4F4F"></button>
-            <button class="color-preset" style="background-color: #000000"></button>
-            <button class="color-preset" style="background-color: #4A4A4A"></button>
-            <button class="color-preset" style="background-color: #fff"></button>
-            <button class="color-preset" style="background-color: #F5E6D3"></button>
-            <button class="color-preset" style="background-color: #dcdcdc"></button>
-        </div>
-        <div class="setting-item">
-            <label>背景色</label>
-            <button class="color-preset" style="background-color: #F5DEB3"></button>
-            <button class="color-preset" style="background-color: #E6D5BC"></button>
-            <button class="color-preset" style="background-color: #F5E6D3"></button>
-            <button class="color-preset" style="background-color: #001c04"></button>
-            <button class="color-preset" style="background-color: #000000"></button>
-            <button class="color-preset" style="background-color: #000325"></button>
+        <div class="itinerary-content" id="itineraryContent">
+            <div class="day-selector">
+                <button class="day-btn active" data-day="1">第一天</button>
+                <button class="day-btn" data-day="2">第二天</button>
+                <button class="day-btn" data-day="3">第三天</button>
+                <button class="day-btn" data-day="4">第四天</button>
+            </div>
+            <div class="timeline-container">
+                <div class="timeline-content active" data-day="1">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="time">09:00</div>
+                            <div class="event">活动1</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="time">12:00</div>
+                            <div class="event">活动2</div>
+                        </div>
+                        <!-- 更多时间点 -->
+                    </div>
+                    <div class="day-description">
+                        第一天行程说明文本
+                    </div>
+                </div>
+                <!-- 其他天的时间线（初始隐藏） -->
+            </div>
         </div>
     </div>
 
-    <script>
-        document.getElementById('fileInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                const text = e.target.result;
-                processContent(text);
-                document.getElementById('fileSelect').classList.add('hidden');
-            };
-            
-            reader.readAsText(file, 'UTF-8');
-        });
-
-        function processContent(text) {
-            const pattern = /(第[零一二三四五六七八九十百千]+章[^\n]*)/g;
-            let matches = [...text.matchAll(pattern)];
-            let lastIndex = 0;
-            const content = document.getElementById('content');
-            const toc = document.getElementById('toc');
-            
-            content.innerHTML = '';
-            toc.innerHTML = '';
-            
-            matches.forEach((match, index) => {
-                const chapterDiv = document.createElement('div');
-                chapterDiv.id = `chapter-${index + 1}`;
-                
-                const titleDiv = document.createElement('h2');
-                titleDiv.className = 'chapter-title';
-                titleDiv.textContent = match[0];
-                chapterDiv.appendChild(titleDiv);
-                
-                const nextIndex = matches[index + 1] ? matches[index + 1].index : text.length;
-                const chapterContent = text.slice(match.index + match[0].length, nextIndex);
-                const contentDiv = document.createElement('div');
-                contentDiv.textContent = chapterContent;
-                chapterDiv.appendChild(contentDiv);
-                
-                content.appendChild(chapterDiv);
-                
-                const link = document.createElement('a');
-                link.href = `#chapter-${index + 1}`;
-                link.textContent = match[0];
-                toc.appendChild(link);
-                
-                lastIndex = nextIndex;
-            });
-        }
-
-        const settingsBtn = document.getElementById('settingsBtn');
-        const settingsPanel = document.getElementById('settingsPanel');
+    <!-- 地图部分 -->
+    <div class="map-container">
+        <!-- 地图背景图片 -->
+        <div class="map-background">
+            <!-- 替换为实际地图图片 -->
+            <div style="width: 100%; height: 100%; background-color: #f0f0f0;"></div>
+        </div>
         
-        settingsBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            settingsPanel.classList.toggle('active');
-        });
+        <!-- 景点标记 -->
+        <div class="spot spot-1" style="left: 20%; top: 30%">1</div>
+        <div class="spot spot-2" style="left: 35%; top: 45%">2</div>
+        <div class="spot spot-3" style="left: 50%; top: 25%">3</div>
+        <div class="spot spot-4" style="left: 65%; top: 55%">4</div>
+        <div class="spot spot-5" style="left: 80%; top: 35%">5</div>
+        <div class="spot spot-6" style="left: 25%; top: 65%">6</div>
+        <div class="spot spot-7" style="left: 45%; top: 75%">7</div>
+        <div class="spot spot-8" style="left: 70%; top: 70%">8</div>
+        <div class="spot spot-9" style="left: 55%; top: 40%">9</div>
+    </div>
 
-        document.addEventListener('click', function(e) {
-            if (!settingsPanel.contains(e.target) && settingsPanel.classList.contains('active')) {
-                settingsPanel.classList.remove('active');
-            }
-        });
+    <!-- 景点详情iframe -->
+    <div class="spot-detail-container" id="spotDetailContainer">
+        <iframe id="spotDetail" frameborder="0"></iframe>
+    </div>
 
-        settingsPanel.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        // 修改设置事件监听
-        document.getElementById('fontSize').addEventListener('change', function(e) {
-            document.querySelector('.content-container').style.fontSize = e.target.value + 'px';
-        });
-
-        document.getElementById('lineHeight').addEventListener('change', function(e) {
-            document.querySelector('.content-container').style.lineHeight = e.target.value;
-        });
-
-        document.getElementById('letterSpacing').addEventListener('change', function(e) {
-            document.querySelector('.content-container').style.letterSpacing = e.target.value + 'px';
-        });
-
-        document.getElementById('fontFamily').addEventListener('change', function(e) {
-            document.querySelector('.content-container').style.fontFamily = e.target.value;
-        });
-
-        document.querySelectorAll('.color-preset').forEach(button => {
-            button.addEventListener('click', function() {
-                const color = this.style.backgroundColor;
-                if (this.parentElement.querySelector('label').textContent === '字色') {
-                    document.querySelector('.content-container').style.color = color;
-                } else {
-                    document.body.style.backgroundColor = color;
-                }
-            });
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
