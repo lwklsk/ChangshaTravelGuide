@@ -1,0 +1,160 @@
+:root {
+    --primary-color: #333333;
+    --secondary-color: #666666;
+    --accent-color: #4A90E2;
+    --background-color: #FFFFFF;
+    --text-color: #333333;
+    --border-radius: 8px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* 行程推荐样式 */
+.itinerary-container {
+    position: relative;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.itinerary-header {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+.itinerary-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.itinerary-content.expanded {
+    max-height: 500px;
+}
+
+.day-selector {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background: #f8f8f8;
+}
+
+.day-btn {
+    border: none;
+    background: none;
+    padding: 8px 16px;
+    color: var(--secondary-color);
+    border-radius: var(--border-radius);
+}
+
+.day-btn.active {
+    background: var(--accent-color);
+    color: white;
+}
+
+.timeline-container {
+    padding: 15px;
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 70px;
+    height: 100%;
+    width: 2px;
+    background: #eee;
+}
+
+.timeline-item {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.time {
+    width: 60px;
+    text-align: right;
+    padding-right: 20px;
+    color: var(--secondary-color);
+}
+
+.event {
+    flex: 1;
+    padding-left: 20px;
+}
+
+/* 地图样式 */
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+}
+
+.map-background {
+    width: 100%;
+    height: 100%;
+}
+
+.spot {
+    position: absolute;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.9);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.spot.active {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* 景点详情iframe容器 */
+.spot-detail-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    transition: height 0.3s ease-out;
+    background: white;
+    z-index: 1000;
+}
+
+.spot-detail-container.expanded {
+    height: 70vh;
+}
+
+#spotDetail {
+    width: 100%;
+    height: 100%;
+}
+
+/* 动画效果 */
+.toggle-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-icon.rotated {
+    transform: rotate(180deg);
+}
